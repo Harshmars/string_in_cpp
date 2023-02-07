@@ -1,42 +1,25 @@
 #include<iostream>
 #include<string>
 using namespace std;
-int char_to_num(char ch){
-    switch(ch){
-        case 'v':
-        return 5;
-        case 'i':
-        return 1;
-        case 'x':
-        return 10;
-        case 'l':
-        return 50;
-        case 'c':
-        return 100;
-        case 'd':
-        return 500;
-        case 'm':
-        return 1000;
+int num_to_roman(int num){
+    int arr[]={1,4,5,9,10,40,50,90,100,400,500,900,1000};
+    string romanVAL[]={"I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"};
+    int i=12;
+    while(num>0){
+        int quotient=num/arr[i];
+        num=num%arr[i];
+        while(quotient--){
+            cout<<romanVAL[i];
+        }
+        i--;
     }
 }
-int main(){
-    string str;
-    cout<<"enter roman number :  ";
-    cin>>str;
-    int res=char_to_num(str[str.length()-1]);
-    for(int i=str.length()-2;i>=0;i--){
-        int num=char_to_num(str[i]);
-        if(num==res-char_to_num( str[i+1])){
-            res+=num;
-        }
-        else if(res>num){
-            res-=num;
-        }
-        
-        else{
-            res+=num;
-        }
-    }
-  cout<<res;
-  return 0;
+int main()
+{
+    int number;
+    cout<<"enter roman number";
+    cin>>number;
+    num_to_roman(number);
+ 
+    return 0;
 }
