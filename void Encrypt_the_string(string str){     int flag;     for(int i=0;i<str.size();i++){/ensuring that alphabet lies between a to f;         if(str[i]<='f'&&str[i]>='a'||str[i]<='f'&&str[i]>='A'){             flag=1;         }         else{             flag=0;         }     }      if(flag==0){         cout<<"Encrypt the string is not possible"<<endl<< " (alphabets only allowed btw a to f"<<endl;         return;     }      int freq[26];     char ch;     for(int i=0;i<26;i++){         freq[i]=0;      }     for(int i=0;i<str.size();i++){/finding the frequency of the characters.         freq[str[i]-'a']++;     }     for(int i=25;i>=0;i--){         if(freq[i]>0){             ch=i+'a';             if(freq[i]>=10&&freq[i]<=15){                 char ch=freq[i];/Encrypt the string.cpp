@@ -1,3 +1,6 @@
+#inlcude<iostream>
+#include<string>
+using namespace std;
 void Encrypt_the_string(string str){
     int flag;
     for(int i=0;i<str.size();i++){ //ensuring that alphabet lies between a to f;
