@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string>
 using namespace std;
-int check_pangram(string str){
+void check_pangram(string str){
     int freq[26];
     int count=0;
     for(int i=0;i<26;i++){
@@ -22,4 +22,5 @@ int check_pangram(string str){
 }
 int main(){
     check_pangram("The quick brown fox jumps over the lazy dog");//this only works on small letter(capital letters does not count).:(
+    return 0;
 }
