@@ -2,41 +2,54 @@
 #include<string>
 using namespace std;
 
-string int_to_str(int num){
-	char ch;
-	string res;
-	if(num<10) return res+=ch=num+48;
-
-	while(num!=0){
-		int rem=num%10;
-		ch=rem+48;
-		res=ch+res;
-		num/=10;
+vector<int> findLPS(string pattern){
+	int n=pattern.size();
+	vector<int> lps(n);
+	int j=0;
+	for(int i=1;i<n;i++){
+		while(j>0 &&pattern[i]!=pattern[j]){
+			j=lps[j-1];
+		}
+		if(pattern[i]==pattern[j]){
+			j++;
+		}
+		lps[i]=j;
 	}
-	return res;
+	return lps;
 }
-string findpositioning(string str1,string str2){
-	int count=0,j,k=0;
-	string res;
-	string prv;
-	for(int i=0;i<str1.size();i++){
-		for(int j=i;j<str1.size();j++){
-			for(int k=i;k<=j;k++){
-				res+=str1[k];
-			}
-			if(res==str2){
-				prv+=int_to_str(i);
-				prv+=" ";
-			}
-			res="";
+
+vector<int> KmpSearch(string text,string pattern){
+	vector<int> lps=findLPS(pattern);
+	vector<int> res;
+	int n,m,j;
+	n=text.size();
+	m=pattern.size();
+	j=0;
+	for(int i=0;i<n;i++){
+		while(j>0&&text[i]!=text[j]){
+			j=lps[j-1];
+		}
+		if(text[i]==pattern[j]){
+			j++;
+		}
+		if(j==m){
+			res.push_back(i-m+1);
+			j=lps[j-1];
 		}
 	}
-	return prv;
+	return res;
 
 }
 int main(){
-	string str1="AABAACAADAABAABA";
-	string str2="AABA";
-	cout<<findpositioning(str1,str2);
+	string text="AABAACAADAABAABA";
+	string pattern="AABA";
+	vector<int>res=KmpSearch(text,pattern);
+	cout<<"Pattern found at index ";
+	for(int i=0;i<res.size();i++){
+		if(i==res.size()-1){
+			cout<<"and ";
+		}
+		cout<<res[i]<<" ";
+	}
 	return 0;
 }
